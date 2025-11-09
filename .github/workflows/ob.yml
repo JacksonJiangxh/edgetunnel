@@ -1,0 +1,51 @@
+name: 混淆当前版本源码
+on:
+  workflow_dispatch:
+
+jobs:
+  obfuscate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read  # 只需要读取权限
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: 使用 Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+
+      - name: 安装依赖
+        run: npm install -g javascript-obfuscator
+
+      - name: 创建混淆输出目录
+        run: mkdir -p dist
+
+      - name: 混淆代码（从临时文件）
+        run: |
+          javascript-obfuscator _worker.js --output dist/_worker.js \
+          --compact true \
+          --control-flow-flattening true \
+          --control-flow-flattening-threshold 1 \
+          --dead-code-injection true \
+          --dead-code-injection-threshold 1 \
+          --identifier-names-generator hexadecimal \
+          --rename-globals true \
+          --string-array true \
+          --string-array-encoding 'rc4' \
+          --string-array-threshold 1 \
+          --transform-object-keys true \
+          --unicode-escape-sequence true
+
+      - name: 打包混淆后的代码
+        run: zip -j obfuscated-code.zip dist/_worker.js
+
+      - name: 上传混淆包为 Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: obfuscated-code-${{ github.run_number }}
+          path: obfuscated-code.zip
+          retention-days: 30  # 可选：设置保留天数
