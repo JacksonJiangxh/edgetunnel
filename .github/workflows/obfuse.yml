@@ -9,12 +9,12 @@ jobs:
       contents: read  # 只需要读取权限
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4  # 升级为 v4
         with:
           fetch-depth: 0
 
       - name: 使用 Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4  # 升级为 v4
         with:
           node-version: "16"
 
@@ -41,11 +41,11 @@ jobs:
           --unicode-escape-sequence true
 
       - name: 打包混淆后的代码
-        run: zip -j page.zip dist/_worker.js
+        run: zip -j obfuscated-code.zip dist/_worker.js
 
       - name: 上传混淆包为 Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4  # ✅ 关键升级：v3 → v4
         with:
           name: obfuscated-code-${{ github.run_number }}
-          path: page.zip
+          path: obfuscated-code.zip
           retention-days: 30  # 可选：设置保留天数
