@@ -41,7 +41,7 @@ jobs:
           --unicode-escape-sequence true
 
       - name: 打包混淆后的代码
-        run: zip -j obfuscated-code.zip dist/_worker.js
+        run: zip -j page.zip dist/_worker.js
 
       - name: 上传混淆包为 Artifact
         uses: actions/upload-artifact@v3
