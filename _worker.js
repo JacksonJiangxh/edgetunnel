@@ -1227,8 +1227,8 @@ async function 读取config_JSON(env, host, userID, 重置配置 = false) {
             TOKEN: await MD5MD5(host + userID),
         },
         订阅转换配置: {
-            SUBAPI: "https://SUBAPI.cmliussss.net",
-            SUBCONFIG: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/refs/heads/master/Clash/config/ACL4SSR_Online_Mini_MultiMode.ini",
+            SUBAPI: "https://subapi.jiangxh.ggff.net",
+            SUBCONFIG: "https://raw.githubusercontent.com/JacksonJiangxh/Clash-Rule/refs/heads/main/supermini.ini",
             SUBEMOJI: false,
         },
         反代: {
@@ -1779,3 +1779,4 @@ async function html1101(host, 访问IP) {
 </body>
 </html>`;
 }
+
