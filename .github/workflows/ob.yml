@@ -47,5 +47,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: obfuscated-code-${{ github.run_number }}
-          path: obfuscated-code.zip
+          path: page.zip
           retention-days: 30  # 可选：设置保留天数
